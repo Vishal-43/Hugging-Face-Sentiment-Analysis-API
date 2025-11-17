@@ -1,0 +1,595 @@
+{
+  "info": {
+    "name": "Sentiment Analysis API",
+    "description": "REST API for sentiment analysis using Hugging Face models. Supports single text analysis, batch processing, historical results, and more.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0.0"
+  },
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "demo-api-key-12345",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "item": [
+        {
+          "name": "Get API Health Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            },
+            "description": "Check the health status of the API, including loaded models and version information."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Sentiment Analysis",
+      "item": [
+        {
+          "name": "Analyze Single Text - Positive",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"I absolutely love this product! It's amazing and wonderful!\",\n  \"language\": \"en\",\n  \"save_history\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/analyze",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "analyze"]
+            },
+            "description": "Analyze sentiment of a single positive text."
+          },
+          "response": []
+        },
+        {
+          "name": "Analyze Single Text - Negative",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"This is terrible. I hate it so much. Worst experience ever.\",\n  \"language\": \"en\",\n  \"save_history\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/analyze",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "analyze"]
+            },
+            "description": "Analyze sentiment of a single negative text."
+          },
+          "response": []
+        },
+        {
+          "name": "Analyze Single Text - Neutral",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"The product arrived on time. It works as expected.\",\n  \"language\": \"en\",\n  \"save_history\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/analyze",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "analyze"]
+            },
+            "description": "Analyze sentiment of a single neutral text."
+          },
+          "response": []
+        },
+        {
+          "name": "Analyze Text with Emojis",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"Great product! 😊👍 Very happy with my purchase! 🎉\",\n  \"language\": \"en\",\n  \"save_history\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/analyze",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "analyze"]
+            },
+            "description": "Analyze sentiment of text containing emojis."
+          },
+          "response": []
+        },
+        {
+          "name": "Analyze Text with URLs",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"Check out this amazing product at https://example.com #awesome\",\n  \"language\": \"en\",\n  \"save_history\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/analyze",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "analyze"]
+            },
+            "description": "Analyze sentiment of text containing URLs and hashtags."
+          },
+          "response": []
+        },
+        {
+          "name": "Analyze Spanish Text",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"¡Me encanta este producto! Es increíble.\",\n  \"language\": \"es\",\n  \"save_history\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/analyze",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "analyze"]
+            },
+            "description": "Analyze sentiment of Spanish text."
+          },
+          "response": []
+        },
+        {
+          "name": "Analyze French Text",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"J'adore ce produit! Il est fantastique.\",\n  \"language\": \"fr\",\n  \"save_history\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/analyze",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "analyze"]
+            },
+            "description": "Analyze sentiment of French text."
+          },
+          "response": []
+        },
+        {
+          "name": "Analyze German Text",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"Ich liebe dieses Produkt! Es ist großartig.\",\n  \"language\": \"de\",\n  \"save_history\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/analyze",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "analyze"]
+            },
+            "description": "Analyze sentiment of German text."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Batch Processing",
+      "item": [
+        {
+          "name": "Batch Analyze - Mixed Sentiments",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"texts\": [\n    \"Excellent service! Highly recommended!\",\n    \"Poor quality, very disappointed.\",\n    \"Average product, nothing special.\",\n    \"Love it! Best purchase ever!\",\n    \"Terrible experience, would not buy again.\"\n  ],\n  \"language\": \"en\",\n  \"save_history\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/batch",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "batch"]
+            },
+            "description": "Analyze sentiment of multiple texts in a single batch request."
+          },
+          "response": []
+        },
+        {
+          "name": "Batch Analyze - Product Reviews",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"texts\": [\n    \"Best purchase ever!\",\n    \"Terrible quality. Very disappointed.\",\n    \"It works fine. Nothing special.\"\n  ],\n  \"language\": \"en\",\n  \"save_history\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/batch",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "batch"]
+            },
+            "description": "Analyze sentiment of product reviews in batch."
+          },
+          "response": []
+        },
+        {
+          "name": "Batch Analyze - Social Media Posts",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"texts\": [\n    \"Just got my new phone! 📱😍 Love it so much! #awesome\",\n    \"Waiting for delivery for weeks now. Very frustrated. 😤\",\n    \"The customer service was helpful and resolved my issue quickly. 👍\",\n    \"Overpriced and not worth the money. Disappointed.\"\n  ],\n  \"language\": \"en\",\n  \"save_history\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/batch",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "batch"]
+            },
+            "description": "Analyze sentiment of social media posts with emojis."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Historical Data",
+      "item": [
+        {
+          "name": "Get Recent History",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/history?limit=10&offset=0",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "history"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "offset",
+                  "value": "0"
+                }
+              ]
+            },
+            "description": "Retrieve recent sentiment analysis results with pagination."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Positive Sentiments Only",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/history?limit=20&sentiment=POSITIVE",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "history"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "sentiment",
+                  "value": "POSITIVE"
+                }
+              ]
+            },
+            "description": "Retrieve historical results filtered by positive sentiment."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Negative Sentiments Only",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/history?limit=20&sentiment=NEGATIVE",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "history"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "sentiment",
+                  "value": "NEGATIVE"
+                }
+              ]
+            },
+            "description": "Retrieve historical results filtered by negative sentiment."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Neutral Sentiments Only",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/history?limit=20&sentiment=NEUTRAL",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "history"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "sentiment",
+                  "value": "NEUTRAL"
+                }
+              ]
+            },
+            "description": "Retrieve historical results filtered by neutral sentiment."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Statistics & Analytics",
+      "item": [
+        {
+          "name": "Get Overall Statistics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "stats"]
+            },
+            "description": "Get comprehensive statistics about sentiment analysis usage."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Data Export",
+      "item": [
+        {
+          "name": "Export Data as JSON",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/export?format=json",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "export"],
+              "query": [
+                {
+                  "key": "format",
+                  "value": "json"
+                }
+              ]
+            },
+            "description": "Export all historical data in JSON format."
+          },
+          "response": []
+        },
+        {
+          "name": "Export Data as CSV",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/export?format=csv",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "export"],
+              "query": [
+                {
+                  "key": "format",
+                  "value": "csv"
+                }
+              ]
+            },
+            "description": "Export all historical data in CSV format."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "API Documentation",
+      "item": [
+        {
+          "name": "Get API Documentation",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/",
+              "host": ["{{baseUrl}}"],
+              "path": [""]
+            },
+            "description": "Get complete API documentation with all endpoints and examples."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Error Testing",
+      "item": [
+        {
+          "name": "Test Empty Text Error",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/analyze",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "analyze"]
+            },
+            "description": "Test error handling for empty text input."
+          },
+          "response": []
+        },
+        {
+          "name": "Test Missing Text Field",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"language\": \"en\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/analyze",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "analyze"]
+            },
+            "description": "Test error handling for missing required text field."
+          },
+          "response": []
+        },
+        {
+          "name": "Test Invalid API Key",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-API-Key",
+                "value": "invalid-key-123"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"Test with invalid API key\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/analyze",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "analyze"]
+            },
+            "description": "Test authentication with invalid API key."
+          },
+          "response": []
+        },
+        {
+          "name": "Test Invalid Endpoint",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/invalid-endpoint",
+              "host": ["{{baseUrl}}"],
+              "path": ["invalid-endpoint"]
+            },
+            "description": "Test error handling for non-existent endpoint."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
